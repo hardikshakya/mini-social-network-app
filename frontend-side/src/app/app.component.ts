@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend-side';
+  storedPosts = [];
+
+  onPostAdded(post): any {
+    this.storedPosts.push(post);
+  }
 }
