@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
+import { Post } from './post.model';
+
+@Injectable({ providedIn: 'root' })
+export class PostsService {
+  private posts: Post[] = [];
+  private postUpdated = new Subject<Post[]>();
+
+  getPosts(): any {
+    return [...this.posts];
+  }
+
+  getPostUpdateListener(): any {
+    return this.postUpdated.asObservable();
+  }
+
+  addPost(title: string, content: string): any {
+    const post: Post = { title, content };
+    this.posts.push(post);
+    this.postUpdated.next([...this.posts]);
+  }
+}
