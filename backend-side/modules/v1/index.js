@@ -13,6 +13,7 @@ router.use((req, res, next) => {
 
 // Routes
 router.use("/", require("./home/homeRoute"));
+router.use("/post", require("./post/postRoute"));
 
 router.all("/*", (req, res) => {
     logger.info("ERROR LOG");

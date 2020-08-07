@@ -1,3 +1,9 @@
 {
-    "TEST_MSG": "It is just test message."
+    "TEST_MSG": "It is just test message.",
+
+    "POST_CREATE_DONE": "Post added succesfully!",
+    "POST_LIST_DONE": "Posts fetched succesfully!",
+
+    "ERR_POST_TITLE_REQUIRED": "Post Title is required.",
+    "ERR_POST_CONTENT_REQUIRED": "Post Content is required."
 }

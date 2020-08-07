@@ -10,12 +10,6 @@ import { PostsService } from '../posts.service';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
-  // posts = [
-  //   {title: 'First post', content: 'ahha hahhaha hahahah'},
-  //   {title: 'Second post', content: 'ahha hahhaha hahahah'},
-  //   {title: 'Third post', content: 'ahha hahhaha hahahah'}
-  // ];
-
   posts: Post[] = [];
   private postsSub: Subscription;
 
@@ -24,7 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     // Add 'implements OnInit' to the class.
-    this.posts = this.postsService.getPosts();
+    this.postsService.getPosts();
     this.postsService
       .getPostUpdateListener()
       .subscribe((posts: Post[]) => (this.posts = posts));
