@@ -14,4 +14,12 @@ middleware.postCreateValidator = () => {
     ];
 };
 
+middleware.postDeleteValidator = () => {
+    return [
+        check("id", l10n.t("ERR_POST_ID_REQUIRED")).exists({
+            checkFalsy: true,
+        }),
+    ];
+};
+
 module.exports = middleware;

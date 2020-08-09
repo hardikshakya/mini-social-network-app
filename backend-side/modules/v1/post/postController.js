@@ -9,10 +9,10 @@ postCtr.postCreate = async (req, res) => {
     try {
         const data = await postService.postCreate(req.body);
 
-        return res.status(STANDARD.SUCCESS).json({
+        return res.status(STANDARD.CREATED).json({
             message: l10n.t("POST_CREATE_DONE"),
             data,
-            code: STANDARD.SUCCESS,
+            code: STANDARD.CREATED,
         });
     } catch (error) {
         logger.error("[ERROR] From Main post-create API catch", error);
@@ -34,6 +34,23 @@ postCtr.postList = async (req, res) => {
         });
     } catch (error) {
         logger.error("[ERROR] From Main post-list API catch", error);
+        return res.status(ERROR500.CODE).json({
+            error: ERROR500.MESSAGE,
+            code: ERROR500.CODE,
+        });
+    }
+};
+
+postCtr.postDelete = async (req, res) => {
+    try {
+        const data = await postService.postDelete(req.params.id);
+
+        return res.status(STANDARD.SUCCESS).json({
+            message: l10n.t("POST_DELETE_DONE"),
+            code: STANDARD.SUCCESS,
+        });
+    } catch (error) {
+        logger.error("[ERROR] From Main post-delete API catch", error);
         return res.status(ERROR500.CODE).json({
             error: ERROR500.MESSAGE,
             code: ERROR500.CODE,

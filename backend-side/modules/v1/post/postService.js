@@ -1,10 +1,26 @@
 const logger = require("../../../lib/logger");
+const Post = require("../../../models/post");
 
 const postService = {};
 
-postService.postCreate = (data) => {
+postService.postCreate = async (data) => {
     try {
-        const result = data;
+        const post = new Post({
+            title: data.title,
+            content: data.content,
+        });
+        const result = await post.save();
+
+        return result._id;
+    } catch (error) {
+        logger.error("[ERROR] From postList in postService", error);
+        throw new Error(error);
+    }
+};
+
+postService.postList = async () => {
+    try {
+        const result = await Post.find();
 
         return result;
     } catch (error) {
@@ -13,22 +29,11 @@ postService.postCreate = (data) => {
     }
 };
 
-postService.postList = () => {
+postService.postDelete = async (postId) => {
     try {
-        const result = [
-            {
-                id: "1",
-                title: "First Post",
-                content: "First Title Data",
-            },
-            {
-                id: "2",
-                title: "Second Post",
-                content: "Second Title Data",
-            },
-        ];
+        await Post.deleteOne({ _id: postId });
 
-        return result;
+        return postId;
     } catch (error) {
         logger.error("[ERROR] From postList in postService", error);
         throw new Error(error);

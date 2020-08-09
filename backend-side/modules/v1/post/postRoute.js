@@ -17,4 +17,12 @@ postRouter.post("/post-create", postCreateMiddleware);
 const postListMiddleware = [postCtr.postList];
 postRouter.get("/post-list", postListMiddleware);
 
+// Post Delete
+const postDeleteMiddleware = [
+    postMiddleware.postDeleteValidator(),
+    validationHandler,
+    postCtr.postDelete,
+];
+postRouter.delete("/post-delete/:id", postDeleteMiddleware);
+
 module.exports = postRouter;

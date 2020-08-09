@@ -3,7 +3,9 @@
 
     "POST_CREATE_DONE": "Post added succesfully!",
     "POST_LIST_DONE": "Posts fetched succesfully!",
+    "POST_DELETE_DONE": "Posts deleted!",
 
+    "ERR_POST_ID_REQUIRED": "Post ID is required.",
     "ERR_POST_TITLE_REQUIRED": "Post Title is required.",
     "ERR_POST_CONTENT_REQUIRED": "Post Content is required."
 }
