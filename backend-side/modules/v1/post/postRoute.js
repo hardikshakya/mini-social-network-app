@@ -13,6 +13,22 @@ const postCreateMiddleware = [
 ];
 postRouter.post("/post-create", postCreateMiddleware);
 
+// Post Update
+const postUpdateMiddleware = [
+    postMiddleware.postUpdateValidator(),
+    validationHandler,
+    postCtr.postUpdate,
+];
+postRouter.put("/post-update/:id", postUpdateMiddleware);
+
+// Fetch Single Post
+const postDataMiddleware = [
+    postMiddleware.postDataValidator(),
+    validationHandler,
+    postCtr.postProfile,
+];
+postRouter.get("/post-data/:id", postDataMiddleware);
+
 // Post List
 const postListMiddleware = [postCtr.postList];
 postRouter.get("/post-list", postListMiddleware);

@@ -14,6 +14,22 @@ middleware.postCreateValidator = () => {
     ];
 };
 
+middleware.postDataValidator = () => {
+    return [
+        check("id", l10n.t("ERR_POST_ID_REQUIRED")).exists({
+            checkFalsy: true,
+        }),
+    ];
+};
+
+middleware.postUpdateValidator = () => {
+    return [
+        check("id", l10n.t("ERR_POST_ID_REQUIRED")).exists({
+            checkFalsy: true,
+        }),
+    ];
+};
+
 middleware.postDeleteValidator = () => {
     return [
         check("id", l10n.t("ERR_POST_ID_REQUIRED")).exists({

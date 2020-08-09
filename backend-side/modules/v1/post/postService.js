@@ -18,6 +18,33 @@ postService.postCreate = async (data) => {
     }
 };
 
+postService.postUpdate = async (data, postId) => {
+    try {
+        const post = new Post({
+            _id: postId,
+            title: data.title,
+            content: data.content,
+        });
+        const result = await Post.updateOne({ _id: postId }, post);
+
+        return result || null;
+    } catch (error) {
+        logger.error("[ERROR] From postUpdate in postService", error);
+        throw new Error(error);
+    }
+};
+
+postService.postProfile = async (postId) => {
+    try {
+        const result = await Post.findById(postId);
+
+        return result || null;
+    } catch (error) {
+        logger.error("[ERROR] From postProfile in postService", error);
+        throw new Error(error);
+    }
+};
+
 postService.postList = async () => {
     try {
         const result = await Post.find();
