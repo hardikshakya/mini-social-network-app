@@ -3,12 +3,16 @@ const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const l10n = require("jm-ez-l10n");
+const initDatabase = require("./database");
 
 l10n.setTranslationsFile("en", "./language/translation.en.json");
 
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
+
+//Database
+initDatabase();
 
 app.use(l10n.enableL10NExpress);
 app.use(morgan("combined"));
