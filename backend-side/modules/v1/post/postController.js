@@ -7,7 +7,9 @@ const postCtr = {};
 
 postCtr.postCreate = async (req, res) => {
     try {
-        const data = await postService.postCreate(req.body);
+        const url = req.protocol + "://" + req.get("host");
+        const filename = req.file.filename;
+        const data = await postService.postCreate(req.body, url, filename);
 
         return res.status(STANDARD.CREATED).json({
             message: l10n.t("POST_CREATE_DONE"),

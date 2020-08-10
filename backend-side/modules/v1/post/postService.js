@@ -3,13 +3,12 @@ const Post = require("../../../models/post");
 
 const postService = {};
 
-postService.postCreate = async (data) => {
+postService.postCreate = async (data, url, filename) => {
     try {
-        const url = req.protocol + "://" + req.get("host");
         const post = new Post({
             title: data.title,
             content: data.content,
-            imagePath: url + "/images/" + req.file.filename,
+            imagePath: url + "/images/" + filename,
         });
         const result = await post.save();
         const resData = {
