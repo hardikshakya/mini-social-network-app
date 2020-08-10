@@ -2,11 +2,13 @@ const express = require("express");
 const postCtr = require("./postController");
 const postMiddleware = require("./postMiddleware");
 const { validationHandler } = require("../../../helper/validate");
+const { imageUpload } = require("../../../helper/imgUpload");
 
 const postRouter = express.Router();
 
 // Post Create
 const postCreateMiddleware = [
+    imageUpload,
     postMiddleware.postCreateValidator(),
     validationHandler,
     postCtr.postCreate,

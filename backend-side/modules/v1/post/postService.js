@@ -5,13 +5,18 @@ const postService = {};
 
 postService.postCreate = async (data) => {
     try {
+        const url = req.protocol + "://" + req.get("host");
         const post = new Post({
             title: data.title,
             content: data.content,
+            imagePath: url + "/images/" + req.file.filename,
         });
         const result = await post.save();
-
-        return result._id;
+        const resData = {
+            ...result,
+            id: result._id,
+        };
+        return resData;
     } catch (error) {
         logger.error("[ERROR] From postList in postService", error);
         throw new Error(error);

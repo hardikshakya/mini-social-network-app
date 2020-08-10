@@ -25,6 +25,7 @@ export class PostsService {
               id: post._id,
               title: post.title,
               content: post.content,
+              imagePath: post.imagePath,
             };
           });
         })
@@ -46,16 +47,23 @@ export class PostsService {
     );
   }
 
-  addPost(title: string, content: string): any {
-    const post: Post = { id: null, title, content };
+  addPost(title: string, content: string, image: File): any {
+    const postData = new FormData();
+    postData.append('title', title);
+    postData.append('content', content);
+    postData.append('image', image, title);
     this.http
-      .post<{ message: string; data: string; code: number }>(
+      .post<{ message: string; data: Post; code: number }>(
         'http://localhost:3000/api/v1/post/post-create',
-        post
+        postData
       )
       .subscribe((responseData) => {
-        const postId = responseData.data;
-        post.id = postId;
+        const post: Post = {
+          id: responseData.data.id,
+          title,
+          content,
+          imagePath: responseData.data.imagePath,
+        };
         this.posts.push(post);
         this.postUpdated.next([...this.posts]);
         this.router.navigate(['/']);
@@ -63,7 +71,7 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string): any {
-    const post: Post = { id, title, content };
+    const post: Post = { id, title, content, imagePath: null };
     this.http
       .put('http://localhost:3000/api/v1/post/post-update/' + id, post)
       .subscribe((response) => {
