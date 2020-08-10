@@ -32,7 +32,15 @@ postCtr.postUpdate = async (req, res) => {
             title,
             content,
         };
-        await postService.postUpdate(reqObj, req.params.id);
+        let imageUpdated = false;
+        let imagePath = req.body.imagePath;
+        if (req.file) {
+            const url = req.protocol + "://" + req.get("host");
+            imagePath = url + "/images/" + req.file.filename;
+            imageUpdated = true;
+        }
+        reqObj.imagePath = imagePath;
+        await postService.postUpdate(reqObj, req.params.id, imageUpdated);
 
         return res.status(STANDARD.SUCCESS).json({
             message: l10n.t("POST_UPDATE_DONE"),

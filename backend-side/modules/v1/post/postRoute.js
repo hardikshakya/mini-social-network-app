@@ -17,6 +17,7 @@ postRouter.post("/post-create", postCreateMiddleware);
 
 // Post Update
 const postUpdateMiddleware = [
+    imageUpload,
     postMiddleware.postUpdateValidator(),
     validationHandler,
     postCtr.postUpdate,

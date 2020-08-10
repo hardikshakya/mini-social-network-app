@@ -1,3 +1,4 @@
+const fs = require("fs");
 const logger = require("../../../lib/logger");
 const Post = require("../../../models/post");
 
@@ -22,13 +23,20 @@ postService.postCreate = async (data, url, filename) => {
     }
 };
 
-postService.postUpdate = async (data, postId) => {
+postService.postUpdate = async (data, postId, imageUpdated) => {
     try {
         const post = new Post({
             _id: postId,
             title: data.title,
             content: data.content,
+            imagePath: data.imagePath,
         });
+        // if (imageUpdated) {
+        //     const oldPostData = await Post.findById(postId);
+        //     const folderPath = (oldPostData.imagePath).replace('http://localhost:3000', '../../..');
+        //     fs.unlinkSync('folderPath');
+        // }
+
         const result = await Post.updateOne({ _id: postId }, post);
 
         return result || null;
