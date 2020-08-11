@@ -9,5 +9,11 @@
 
     "ERR_POST_ID_REQUIRED": "Post ID is required.",
     "ERR_POST_TITLE_REQUIRED": "Post Title is required.",
-    "ERR_POST_CONTENT_REQUIRED": "Post Content is required."
+    "ERR_POST_CONTENT_REQUIRED": "Post Content is required.",
+
+    "ERR_EMAIL_REQUIRED": "Email is required.",
+    "ERR_PASSWORD_REQUIRED": "Password is required.",
+    "ERR_EMAIL_ALREADY_EXIST": "Email already exists.",
+
+    "USER_CREATE_DONE": "User created succesfully!"
 }

@@ -36,8 +36,6 @@ const ERROR400 = {
     MESSAGE: "BAD_REQUEST",
 };
 
-const emailRegex = /^[\w-\._\+%]+@(\w+\.edu|goshockers.com|gocards.com)/;
-
 const ACL_PUBLIC_REGEX_AWS_S3 = /.*/;
 const ACL_PUBLIC = false;
 
@@ -50,7 +48,6 @@ module.exports = {
     ERROR500,
     ERROR409,
     ERROR400,
-    emailRegex,
     ACL_PUBLIC_REGEX_AWS_S3,
     ACL_PUBLIC,
 };
