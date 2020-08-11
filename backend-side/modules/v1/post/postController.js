@@ -57,11 +57,13 @@ postCtr.postUpdate = async (req, res) => {
 
 postCtr.postList = async (req, res) => {
     try {
-        const data = await postService.postList();
+        const queryParams = req.query;
+        const data = await postService.postList(queryParams);
 
         return res.status(STANDARD.SUCCESS).json({
             message: l10n.t("POST_LIST_DONE"),
-            data,
+            data: data.result,
+            maxPosts: data.maxPosts,
             code: STANDARD.SUCCESS,
         });
     } catch (error) {

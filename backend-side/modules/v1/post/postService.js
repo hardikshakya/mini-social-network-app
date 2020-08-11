@@ -57,11 +57,23 @@ postService.postProfile = async (postId) => {
     }
 };
 
-postService.postList = async () => {
+postService.postList = async (queryParams) => {
     try {
-        const result = await Post.find();
+        const pagesize = +queryParams.pagesize;
+        const page = +queryParams.page;
+        let result = await Post.find();
+        const totalPosts = result.length;
 
-        return result;
+        if (pagesize && page) {
+            result = await Post.find()
+                .skip(pagesize * (page - 1))
+                .limit(pagesize);
+        }
+
+        return {
+            result: result,
+            maxPosts: totalPosts,
+        };
     } catch (error) {
         logger.error("[ERROR] From postList in postService", error);
         throw new Error(error);
