@@ -79,6 +79,7 @@ userCtr.logIn = async (req, res) => {
             // data: req.authUserDetails || [],
             token,
             expiresIn: 3600,
+            data: req.authUserDetails._id,
             code: STANDARD.SUCCESS,
         });
     } catch (error) {

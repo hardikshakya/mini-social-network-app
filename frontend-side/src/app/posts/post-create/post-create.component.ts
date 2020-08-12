@@ -52,6 +52,7 @@ export class PostCreateComponent implements OnInit {
             title: postData.data.title,
             content: postData.data.content,
             imagePath: postData.data.imagePath,
+            creator: postData.data.creator
           };
           this.form.setValue({
             title: this.post.title,

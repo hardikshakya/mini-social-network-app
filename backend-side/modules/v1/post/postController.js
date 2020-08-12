@@ -1,7 +1,14 @@
 const l10n = require("jm-ez-l10n");
+const jwt = require("jsonwebtoken");
+
 const postService = require("./postService");
 const logger = require("../../../lib/logger");
-const { STANDARD, ERROR404, ERROR500 } = require("../../../constants/common");
+const {
+    STANDARD,
+    ERROR401,
+    ERROR404,
+    ERROR500,
+} = require("../../../constants/common");
 
 const postCtr = {};
 
@@ -9,7 +16,15 @@ postCtr.postCreate = async (req, res) => {
     try {
         const url = req.protocol + "://" + req.get("host");
         const filename = req.file.filename;
-        const data = await postService.postCreate(req.body, url, filename);
+        const token =
+            req.headers["x-access-token"] || req.headers.authorization;
+        const userData = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const data = await postService.postCreate(
+            req.body,
+            userData.userId,
+            url,
+            filename
+        );
 
         return res.status(STANDARD.CREATED).json({
             message: l10n.t("POST_CREATE_DONE"),
@@ -40,12 +55,27 @@ postCtr.postUpdate = async (req, res) => {
             imageUpdated = true;
         }
         reqObj.imagePath = imagePath;
-        await postService.postUpdate(reqObj, req.params.id, imageUpdated);
+        const token =
+            req.headers["x-access-token"] || req.headers.authorization;
+        const userData = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const data = await postService.postUpdate(
+            reqObj,
+            userData.userId,
+            req.params.id,
+            imageUpdated
+        );
 
-        return res.status(STANDARD.SUCCESS).json({
-            message: l10n.t("POST_UPDATE_DONE"),
-            code: STANDARD.SUCCESS,
-        });
+        if (data.nModified > 0) {
+            return res.status(STANDARD.SUCCESS).json({
+                message: l10n.t("POST_UPDATE_DONE"),
+                code: STANDARD.SUCCESS,
+            });
+        } else {
+            return res.status(ERROR401.CODE).json({
+                message: ERROR401.MESSAGE,
+                code: ERROR401.CODE,
+            });
+        }
     } catch (error) {
         logger.error("[ERROR] From Main post-update API catch", error);
         return res.status(ERROR500.CODE).json({
@@ -102,12 +132,25 @@ postCtr.postProfile = async (req, res) => {
 
 postCtr.postDelete = async (req, res) => {
     try {
-        const data = await postService.postDelete(req.params.id);
+        const token =
+            req.headers["x-access-token"] || req.headers.authorization;
+        const userData = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const data = await postService.postDelete(
+            req.params.id,
+            userData.userId
+        );
 
-        return res.status(STANDARD.SUCCESS).json({
-            message: l10n.t("POST_DELETE_DONE"),
-            code: STANDARD.SUCCESS,
-        });
+        if (data.n > 0) {
+            return res.status(STANDARD.SUCCESS).json({
+                message: l10n.t("POST_DELETE_DONE"),
+                code: STANDARD.SUCCESS,
+            });
+        } else {
+            return res.status(ERROR401.CODE).json({
+                message: ERROR401.MESSAGE,
+                code: ERROR401.CODE,
+            });
+        }
     } catch (error) {
         logger.error("[ERROR] From Main post-delete API catch", error);
         return res.status(ERROR500.CODE).json({

@@ -4,12 +4,13 @@ const Post = require("../../../models/post");
 
 const postService = {};
 
-postService.postCreate = async (data, url, filename) => {
+postService.postCreate = async (data, userId, url, filename) => {
     try {
         const post = new Post({
             title: data.title,
             content: data.content,
             imagePath: url + "/images/" + filename,
+            creator: userId,
         });
         const result = await post.save();
         const resData = {
@@ -23,13 +24,14 @@ postService.postCreate = async (data, url, filename) => {
     }
 };
 
-postService.postUpdate = async (data, postId, imageUpdated) => {
+postService.postUpdate = async (data, userId, postId, imageUpdated) => {
     try {
         const post = new Post({
             _id: postId,
             title: data.title,
             content: data.content,
             imagePath: data.imagePath,
+            creator: userId,
         });
         // if (imageUpdated) {
         //     const oldPostData = await Post.findById(postId);
@@ -37,7 +39,10 @@ postService.postUpdate = async (data, postId, imageUpdated) => {
         //     fs.unlinkSync('folderPath');
         // }
 
-        const result = await Post.updateOne({ _id: postId }, post);
+        const result = await Post.updateOne(
+            { _id: postId, creator: userId },
+            post
+        );
 
         return result || null;
     } catch (error) {
@@ -80,11 +85,11 @@ postService.postList = async (queryParams) => {
     }
 };
 
-postService.postDelete = async (postId) => {
+postService.postDelete = async (postId, userId) => {
     try {
-        await Post.deleteOne({ _id: postId });
+        const result = await Post.deleteOne({ _id: postId, creator: userId });
 
-        return postId;
+        return result;
     } catch (error) {
         logger.error("[ERROR] From postList in postService", error);
         throw new Error(error);
