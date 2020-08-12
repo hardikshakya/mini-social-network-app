@@ -14,4 +14,13 @@ const userSignUpMiddleware = [
 ];
 userRouter.post("/signup", userSignUpMiddleware);
 
+// User LogIn
+const userLogInMiddleware = [
+    userMiddleware.userLogInValidator(),
+    validationHandler,
+    userMiddleware.isUserExistsOrNot,
+    userCtr.logIn,
+];
+userRouter.post("/login", userLogInMiddleware);
+
 module.exports = userRouter;

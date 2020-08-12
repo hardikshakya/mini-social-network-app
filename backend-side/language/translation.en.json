@@ -14,6 +14,11 @@
     "ERR_EMAIL_REQUIRED": "Email is required.",
     "ERR_PASSWORD_REQUIRED": "Password is required.",
     "ERR_EMAIL_ALREADY_EXIST": "Email already exists.",
+    "ERR_PASSWORD_IS_NOT_MATCHED": "Password does not match",
 
-    "USER_CREATE_DONE": "User created succesfully!"
+    "USER_CREATE_DONE": "User created succesfully!",
+    "MSG_LOGIN_SUCCESS": "Login success",
+    "MSG_SIGNUP_SUCCESS": "Signup success",
+
+    "ERR_USER_NOT_FOUND": "User does not exists!"
 }
