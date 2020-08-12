@@ -36,6 +36,7 @@ userCtr.signUp = async (req, res) => {
         return res.status(STANDARD.SUCCESS).json({
             message: l10n.t("MSG_SIGNUP_SUCCESS"),
             token,
+            expiresIn: 3600,
             code: STANDARD.SUCCESS,
         });
     } catch (error) {
@@ -77,6 +78,7 @@ userCtr.logIn = async (req, res) => {
             message: l10n.t("MSG_LOGIN_SUCCESS"),
             // data: req.authUserDetails || [],
             token,
+            expiresIn: 3600,
             code: STANDARD.SUCCESS,
         });
     } catch (error) {
