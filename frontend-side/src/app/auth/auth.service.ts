@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AuthData } from './auth-data.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private isAuthenticated = false;
   private token = '';
+  private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Get Token
   getToken(): any {
     return this.token;
+  }
+
+  getIsAuth(): any {
+    return this.isAuthenticated;
+  }
+
+  // Get status that user authenticated or not
+  getAuthStatusListener(): any {
+    return this.authStatusListener.asObservable();
   }
 
   // SignUp-Create User
@@ -35,6 +48,19 @@ export class AuthService {
       .subscribe((responseData) => {
         const token = responseData.token;
         this.token = token;
+        if (token) {
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          this.router.navigate(['/']);
+        }
       });
+  }
+
+  // Logout User
+  logout(): any {
+    this.token = '';
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.router.navigate(['/']);
   }
 }
