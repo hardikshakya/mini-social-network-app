@@ -3,11 +3,13 @@ const postCtr = require("./postController");
 const postMiddleware = require("./postMiddleware");
 const { validationHandler } = require("../../../helper/validate");
 const { imageUpload } = require("../../../helper/imgUpload");
+const userMiddleware = require("../user/userMiddleware");
 
 const postRouter = express.Router();
 
 // Post Create
 const postCreateMiddleware = [
+    userMiddleware.isUserExistsOrNot,
     imageUpload,
     postMiddleware.postCreateValidator(),
     validationHandler,
@@ -17,6 +19,7 @@ postRouter.post("/post-create", postCreateMiddleware);
 
 // Post Update
 const postUpdateMiddleware = [
+    userMiddleware.isUserExistsOrNot,
     imageUpload,
     postMiddleware.postUpdateValidator(),
     validationHandler,
@@ -40,6 +43,7 @@ postRouter.get("/post-list", postListMiddleware);
 const postDeleteMiddleware = [
     postMiddleware.postDeleteValidator(),
     validationHandler,
+    userMiddleware.isUserExistsOrNot,
     postCtr.postDelete,
 ];
 postRouter.delete("/post-delete/:id", postDeleteMiddleware);
