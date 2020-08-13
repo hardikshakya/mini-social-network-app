@@ -34,7 +34,7 @@ postCtr.postCreate = async (req, res) => {
     } catch (error) {
         logger.error("[ERROR] From Main post-create API catch", error);
         return res.status(ERROR500.CODE).json({
-            error: ERROR500.MESSAGE,
+            error: l10n.t("ERR_POST_CREATE"),
             code: ERROR500.CODE,
         });
     }
@@ -72,14 +72,14 @@ postCtr.postUpdate = async (req, res) => {
             });
         } else {
             return res.status(ERROR401.CODE).json({
-                message: ERROR401.MESSAGE,
+                error: ERROR401.MESSAGE,
                 code: ERROR401.CODE,
             });
         }
     } catch (error) {
         logger.error("[ERROR] From Main post-update API catch", error);
         return res.status(ERROR500.CODE).json({
-            error: ERROR500.MESSAGE,
+            error: l10n.t("ERR_POST_UPDATE"),
             code: ERROR500.CODE,
         });
     }
@@ -99,7 +99,7 @@ postCtr.postList = async (req, res) => {
     } catch (error) {
         logger.error("[ERROR] From Main post-list API catch", error);
         return res.status(ERROR500.CODE).json({
-            error: ERROR500.MESSAGE,
+            error: l10n.t("ERR_FETCH_LISTS"),
             code: ERROR500.CODE,
         });
     }
@@ -124,7 +124,7 @@ postCtr.postProfile = async (req, res) => {
     } catch (error) {
         logger.error("[ERROR] From Main post-list API catch", error);
         return res.status(ERROR500.CODE).json({
-            error: ERROR500.MESSAGE,
+            error: l10n.t("ERR_POST_PROFILE"),
             code: ERROR500.CODE,
         });
     }
@@ -147,14 +147,14 @@ postCtr.postDelete = async (req, res) => {
             });
         } else {
             return res.status(ERROR401.CODE).json({
-                message: ERROR401.MESSAGE,
+                error: ERROR401.MESSAGE,
                 code: ERROR401.CODE,
             });
         }
     } catch (error) {
         logger.error("[ERROR] From Main post-delete API catch", error);
         return res.status(ERROR500.CODE).json({
-            error: ERROR500.MESSAGE,
+            error: l10n.t("ERR_POST_DELETE"),
             code: ERROR500.CODE,
         });
     }

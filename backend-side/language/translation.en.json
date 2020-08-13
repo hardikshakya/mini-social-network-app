@@ -7,18 +7,24 @@
     "POST_UPDATE_DONE": "Post updated succesfully!",
     "POST_PROFILE_DONE": "Post data fetched succesfully!",
 
-    "ERR_POST_ID_REQUIRED": "Post ID is required.",
-    "ERR_POST_TITLE_REQUIRED": "Post Title is required.",
-    "ERR_POST_CONTENT_REQUIRED": "Post Content is required.",
+    "ERR_POST_ID_REQUIRED": "Post ID is required!",
+    "ERR_POST_TITLE_REQUIRED": "Post Title is required!",
+    "ERR_POST_CONTENT_REQUIRED": "Post Content is required!",
 
-    "ERR_EMAIL_REQUIRED": "Email is required.",
-    "ERR_PASSWORD_REQUIRED": "Password is required.",
-    "ERR_EMAIL_ALREADY_EXIST": "Email already exists.",
-    "ERR_PASSWORD_IS_NOT_MATCHED": "Password does not match",
+    "ERR_EMAIL_REQUIRED": "Email is required!",
+    "ERR_PASSWORD_REQUIRED": "Password is required!",
+    "ERR_EMAIL_ALREADY_EXIST": "Email already exists!",
+    "ERR_PASSWORD_IS_NOT_MATCHED": "Password does not match!",
 
     "USER_CREATE_DONE": "User created succesfully!",
-    "MSG_LOGIN_SUCCESS": "Login success",
-    "MSG_SIGNUP_SUCCESS": "Signup success",
+    "MSG_LOGIN_SUCCESS": "Login success!",
+    "MSG_SIGNUP_SUCCESS": "Signup success!",
 
-    "ERR_USER_NOT_FOUND": "User does not exists!"
+    "ERR_USER_NOT_FOUND": "User does not exists!",
+
+    "ERR_POST_CREATE": "Creating a Post Failed! TRY AGAIN!",
+    "ERR_POST_UPDATE": "Couldn't Update Post! TRY AGAIN!",
+    "ERR_FETCH_LISTS": "Fetching Posts Failed! TRY AGAIN!",
+    "ERR_POST_PROFILE": "Fetching Post Failed! TRY AGAIN!",
+    "ERR_POST_DELETE": "Delete Proccess failed! TRY AGAIN!"
 }
