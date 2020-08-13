@@ -4,7 +4,9 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthData } from './auth-data.model';
-import { error } from '@angular/compiler/src/util';
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -37,16 +39,14 @@ export class AuthService {
   // SignUp-Create User
   createUser(email: string, password: string): any {
     const authData: AuthData = { email, password };
-    this.http
-      .post('http://localhost:3000/api/v1/user/signup', authData)
-      .subscribe(
-        (responseData) => {
-          this.router.navigate(['/']);
-        },
-        (error) => {
-          this.authStatusListener.next(false);
-        }
-      );
+    this.http.post(BACKEND_URL + '/user/signup', authData).subscribe(
+      (responseData) => {
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        this.authStatusListener.next(false);
+      }
+    );
   }
 
   // Login User
@@ -59,7 +59,7 @@ export class AuthService {
         expiresIn: number;
         data: string;
         code: number;
-      }>('http://localhost:3000/api/v1/user/login', authData)
+      }>(BACKEND_URL + '/user/login', authData)
       .subscribe(
         (responseData) => {
           const token = responseData.token;
