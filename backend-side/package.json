@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "jm-ez-l10n": "^1.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.27.0",
     "mongoose": "^5.9.27",
     "mongoose-unique-validator": "^2.0.3",
